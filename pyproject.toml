@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "synthplayground"
+version = "0.1.0"
+description = "A playground for exploring audio synthesizer algorithms."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+# Deep-learning based synth algorithms.
+dl = [
+    "tensorflow>=2.16",
+]
+# Live playback via play(); needs PortAudio (conda-forge python-sounddevice bundles it).
+audio = [
+    "sounddevice>=0.4",
+]
+dev = [
+    "pytest>=8.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["source"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# importlib mode lets test files mirror source file names in different folders
+# (e.g. tests/.../algorithms/test_sine.py) without needing __init__.py files.
+addopts = ["--import-mode=importlib"]
